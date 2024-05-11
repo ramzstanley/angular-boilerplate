@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
 import { CuisineRoutingModule } from './cuisine-routing.module';
@@ -10,7 +10,8 @@ import { DetailsComponent } from './details.component';
     imports: [
         CommonModule,
         ReactiveFormsModule,
-        CuisineRoutingModule
+        CuisineRoutingModule,
+        FormsModule
     ],
     declarations: [
         LayoutComponent,

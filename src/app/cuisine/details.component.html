@@ -1,27 +1,36 @@
 <h1>CUISINEE EXPLORER!</h1>
+<div class="search"> 
+  <input type="text" [(ngModel)]="title" placeholder="Search..">
+  <button (click)="searchFood()"> Search </button>
+</div>
 <p>
     <strong>"Cuisine explorer"</strong> is a concept or activity where individuals or groups immerse themselves in the exploration of different culinary traditions and gastronomic experiences. This exploration can take various forms such as:
 </p>
 <pre> 
-    <b>Tasting and Sampling</b>:            Trying out different dishes, snacks, and beverages from diverse cuisines, either at local restaurants, food markets, street vendors, or through organized tasting events.
-    <b>Cooking and Culinary Workshops</b>:  Participating in cooking classes or workshops led by experienced chefs or culinary experts to learn about the preparation methods, ingredients, and cultural significance of various dishes.
-    <b>Culinary Tours and Travel</b>:       Traveling to different regions or countries specifically to explore their local cuisines, visiting food markets, sampling street food, dining at traditional eateries, and learning about the culinary heritage of the destination.
-    <b>Food Festivals and Events</b>:       Attending food festivals, fairs, and cultural events that celebrate and showcase a wide range of cuisines, culinary traditions, and food-related activities.
-    <b>Online and Media Exploration</b>:    Exploring cuisines virtually through online platforms, food blogs, cooking shows, documentaries, and culinary publications, which offer insights, recipes, and stories about different culinary cultures.
+  Many of us are foodies on the WebTour team, so naturally we’re always on the hunt to eat at the most popular spots anytime we travel somewhere new. 
+  With favorites like Bantayan Burrito Company, Coucou Bar Hotel & Restaurant Bantayan Island, and Stumble Inn Beach Club and more, get ready to 
+  experience the best flavors around Bantayan Island.
 </pre>
 
-<div class="row">
-    <div class="column">
-      <img src="https://gttp.imgix.net/223768/x/0/ug-bantayan-what-to-eat.jpg" alt="SeaFood" style="width:100%">
-      <p style="text-align: center;"><b>SeaFoods ni Niño</b></p>
-    </div>
-    <div class="column">
-      <img src="https://th.bing.com/th/id/OIP.El7fv5zKHwFPWY94osCkjQHaE7?w=950&h=633&rs=1&pid=ImgDetMain" alt="Forest" style="width:100%">
-      <p style="text-align: center;"><b>Bodbod ni Jemryl</b></p>
-    </div>
-    <div class="column">
-      <img src="https://th.bing.com/th/id/R.231b4c73b4a26de3ced6ba9183eec060?rik=o61WFPzMgI9ctg&riu=http%3a%2f%2f4.bp.blogspot.com%2f-EQ96s_g8Ygc%2fU1jHjUP4iYI%2fAAAAAAAACGE%2fo38Y1zielJg%2fs1600%2f302963_2327340895413_754957129_n%2b%252528Copy%252529.jpg&ehk=eLCCLcqsy%2fMTaOZofCKqtBprVDvvGYDr5YcVCF51Dwo%3d&risl=&pid=ImgRaw&r=0" alt="Mountains" style="width:89%">
-      <p style="text-align: center;"><b>BBQ ni Peter</b></p>
-    </div>
-    
-  </div>
+<table class="table table-striped">
+  <thead>
+    <tr>
+      <th style="width:30%">Picture</th>
+      <th style="width:30%">Title</th>
+      <th style="width:40%">Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let food of foods">
+      <td><img [src]="food.picture" alt="Food Picture" style="max-width: 100px;"></td>
+      <td>{{ food.title }}</td>
+      <td>{{ food.description }}</td>
+    </tr>
+    <tr *ngIf="!foods">
+      <td colspan="3" class="text-center">
+        <span class="spinner-border spinner-border-lg align-center"></span>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
