@@ -4,10 +4,10 @@
       <div class="navbar-nav">
           <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-item nav-link">Home</a>
           <a routerLink="/cuisine" routerLinkActive="active" class="nav-item nav-link">Cuisine-Explorer</a>
-          <a routerLink="/photo" routerLinkActive="active" class="nav-item nav-link">Photo Scavenger Hunt</a>
-          <a routerLink="/legend" routerLinkActive="active" class="nav-item nav-link">Local Legends</a>
-          <a routerLink="/craft" routerLinkActive="active" class="nav-item nav-link">DIY Craft</a>
-          <a routerLink="/calendar" routerLinkActive="active" class="nav-item nav-link">Local Tradition Calendar</a>
+          <a routerLink="/photoscavenger" routerLinkActive="active" class="nav-item nav-link">Photo Scavenger Hunt</a>
+          <a routerLink="/locallegends" routerLinkActive="active" class="nav-item nav-link">Local Legends</a>
+          <a routerLink="/localtradition" routerLinkActive="active" class="nav-item nav-link">Local Tradition Calendar</a>
+          <a routerLink="/diycraft" routerLinkActive="active" class="nav-item nav-link">Feed Back Form</a>
           <a routerLink="/profile" routerLinkActive="active" class="nav-item nav-link">Profile</a>
           <a *ngIf="account.role === Role.Admin" routerLink="/admin" routerLinkActive="active" class="nav-item nav-link">Admin</a>
           <a (click)="logout()" class="nav-item nav-link">Logout</a>
