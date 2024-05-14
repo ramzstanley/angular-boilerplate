@@ -1,3 +1,46 @@
-<h1>Feed Back Form</h1>
-
-
+<form novalidate>
+    <h1> 
+      <div style="text-align: center;">
+        TOURIST FEEDBACK FORM
+    </div>
+    <br>
+    </h1>
+      <section class="customer-name">
+        <h1>FullName: </h1> <input style="height:37px; width:50%;" type="text" placeholder="Enter your name here">
+      </section>
+      <br>
+      <section class="detailed-feedback">
+        <section>
+          <h1>Website Experience</h1>
+          <ul>
+           
+              <input id="websiteExperienceAwesome" name="websiteExperience" type="radio" value="Awesome">
+              <label for="websiteExperienceAwesome">Awesome</label>
+            <br>
+              <input id="websiteExperienceGood" type="radio" name="websiteExperience"  value="Good">
+              <label for="websiteExperienceood">Good</label>
+            <br>
+           
+              <input id="websiteExperienceWorst" type="radio" name="websiteExperience" value="Worst">
+              <label for="websiteExperienceWorst">Worst</label>
+            
+          </ul>
+        </section>
+      </section>
+      <section>
+        <h1>Any Suggestions?</h1>
+        <br>
+        <input  style="height:37px; width:50%;" type="text">
+      </section>
+      <br>
+      <section class="more-feedbacks">
+        <h1>More feedback?</h1>
+            <input  style="height:37px; width:50%;" type="text">
+            <br> <br><button type="button" title="Delete Feedback">Delete</button>
+      </section>
+      <br>
+      <button type="submit">Submit Feedback</button>
+      <button type="button">Clear Form</button>
+      <button type="button">Add a Feedback</button>
+  </form>
+  
