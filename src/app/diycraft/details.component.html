@@ -1,46 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tourist Feedback Form</title>
+
+</head>
+<body>
+
 <form novalidate>
-    <h1> 
-      <div style="text-align: center;">
-        TOURIST FEEDBACK FORM
+  <h1>
+    <div class="form-title">
+      TOURIST FEEDBACK FORM
     </div>
     <br>
-    </h1>
-      <section class="customer-name">
-        <h1>FullName: </h1> <input style="height:37px; width:50%;" type="text" placeholder="Enter your name here">
-      </section>
-      <br>
-      <section class="detailed-feedback">
-        <section>
-          <h1>Website Experience</h1>
-          <ul>
-           
-              <input id="websiteExperienceAwesome" name="websiteExperience" type="radio" value="Awesome">
-              <label for="websiteExperienceAwesome">Awesome</label>
-            <br>
-              <input id="websiteExperienceGood" type="radio" name="websiteExperience"  value="Good">
-              <label for="websiteExperienceood">Good</label>
-            <br>
-           
-              <input id="websiteExperienceWorst" type="radio" name="websiteExperience" value="Worst">
-              <label for="websiteExperienceWorst">Worst</label>
-            
-          </ul>
-        </section>
-      </section>
-      <section>
-        <h1>Any Suggestions?</h1>
-        <br>
-        <input  style="height:37px; width:50%;" type="text">
-      </section>
-      <br>
-      <section class="more-feedbacks">
-        <h1>More feedback?</h1>
-            <input  style="height:37px; width:50%;" type="text">
-            <br> <br><button type="button" title="Delete Feedback">Delete</button>
-      </section>
-      <br>
-      <button type="submit">Submit Feedback</button>
-      <button type="button">Clear Form</button>
-      <button type="button">Add a Feedback</button>
-  </form>
+  </h1>
+  <div class="customer-name-section">
+    <h1>Full Name: </h1>
+    <input type="text" placeholder="Enter your name here">
+  </div>
+  <br>
+  <div class="detailed-feedback-section">
+    <div class="website-experience-section">
+      <h1>Website Experience</h1>
+      <ul>
+        <li>
+          <input id="websiteExperienceAwesome" name="websiteExperience" type="radio" value="Awesome">
+          <label for="websiteExperienceAwesome">Awesome</label>
+        </li>
+        <li>
+          <input id="websiteExperienceGood" type="radio" name="websiteExperience" value="Good">
+          <label for="websiteExperienceGood">Good</label>
+        </li>
+        <li>
+          <input id="websiteExperienceWorst" type="radio" name="websiteExperience" value="Worst">
+          <label for="websiteExperienceWorst">Worst</label>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <br>
+  <div class="rating-section">
+    <h1>Rate Your Experience</h1>
+    <div class="rating">
+      <input type="radio" id="star5" name="rating" value="5">
+      <label for="star5" title="5 stars">&#9733;</label>
+      <input type="radio" id="star4" name="rating" value="4">
+      <label for="star4" title="4 stars">&#9733;</label>
+      <input type="radio" id="star3" name="rating" value="3">
+      <label for="star3" title="3 stars">&#9733;</label>
+      <input type="radio" id="star2" name="rating" value="2">
+      <label for="star2" title="2 stars">&#9733;</label>
+      <input type="radio" id="star1" name="rating" value="1">
+      <label for="star1" title="1 star">&#9733;</label>
+    </div>
+  </div>
   
+  <br>
+  <div class="suggestions-section">
+    <h1>Any Suggestions?</h1>
+    <br>
+    <input type="text">
+  </div>
+  <br>
+  <div class="form-buttons-section">
+    <button type="submit" class="submit-feedback-button">Submit Feedback</button>
+    <button type="button" class="clear-form-button">Clear Form</button>
+    <button type="button" class="add-feedback-button">Add a Feedback</button>
+  </div>
+</form>
+
+</body>
+</html>
