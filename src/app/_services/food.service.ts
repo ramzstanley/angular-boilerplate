@@ -26,15 +26,15 @@ export class FoodService {
         return this.foodSubject.value;
     }
 
-    getAll() {
+    getAll(): Observable<Food[]> {
         return this.http.get<Food[]>(baseUrl);
     }
 
-    getById(id: string) {
+    getById(id: string): Observable<Food> {
         return this.http.get<Food>(`${baseUrl}/${id}`);
     }
     
-    getFoodTitle(title: string): Observable<any> {
-        return this.http.get<any>(`${baseUrl}/food/${title}`)
+    getFoodTitle(title: string): Observable<Food> {
+        return this.http.get<Food>(`${baseUrl}/food/${title}`)
     }
 }

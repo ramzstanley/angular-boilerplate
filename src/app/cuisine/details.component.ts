@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { FoodService } from '@app/_services';
+import { Food } from '@app/_models';
 
-@Component({ templateUrl: 'details.component.html' })
-export class DetailsComponent {
+@Component({
+    templateUrl: 'details.component.html'
+})
+export class DetailsComponent implements OnInit {
     title: string;
-    foods: any[];
+    foods: Food[];
+    errorMessage: string;
 
     constructor(private foodService: FoodService) { }
 
@@ -16,7 +20,16 @@ export class DetailsComponent {
     loadAllFoods() {
         this.foodService.getAll()
             .pipe(first())
-            .subscribe(foods => this.foods = foods);
+            .subscribe(
+                foods => {
+                    this.foods = foods;
+                    console.log('Foods:', this.foods);
+                },
+                error => {
+                    console.log('Error fetching foods:', error);
+                    this.errorMessage = 'Error fetching foods';
+                }
+            );
     }
 
     searchFood() {
@@ -26,12 +39,15 @@ export class DetailsComponent {
         }
 
         this.foodService.getFoodTitle(this.title)
-            .subscribe((data: any) => {
-                console.log("Response from API: ", data);
-                this.foods = data ? [data] : []; // Update foods array with search result or empty array if not found
-            }, error => {
-                console.log(error);
-                this.foods = []; // Clear foods array on error
-            });
+            .subscribe(
+                (data: Food) => {
+                    console.log('Response from API:', data);
+                    this.foods = data ? [data] : [];
+                },
+                error => {
+                    console.log('Error fetching food by title:', error);
+                    this.errorMessage = 'Error fetching food by title';
+                }
+            );
     }
 }
