@@ -16,6 +16,19 @@ export class ListComponent implements OnInit {
             .subscribe(accounts => this.accounts = accounts);
     }
 
+    /*
+    deactivateAccount(id: string) {
+        const account = this.accounts.find(x => x.id === id);
+        account.isDeactivating = true;
+        this.accountService.deactivate(id)
+            .pipe(first())
+            .subscribe(() => {
+                account.isActive = false;
+                account.isDeactivating = false;
+            });
+    }
+
+    
     deleteAccount(id: string) {
         const account = this.accounts.find(x => x.id === id);
         account.isDeleting = true;
@@ -25,4 +38,5 @@ export class ListComponent implements OnInit {
                 this.accounts = this.accounts.filter(x => x.id !== id) 
             });
     }
+    */
 }

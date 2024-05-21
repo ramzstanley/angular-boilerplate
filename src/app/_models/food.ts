@@ -1,6 +1,8 @@
 export class Food {
-    id: string;
+    id: number;
     title: string;
     description: string;
     picture: string;
+    editTitle?: string;
+    editDescription?: string;
 }

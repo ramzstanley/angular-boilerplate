@@ -13,6 +13,7 @@ export class AddEditComponent implements OnInit {
     isAddMode: boolean;
     loading = false;
     submitted = false;
+    account: any = {};
 
     constructor(
         private formBuilder: FormBuilder,
@@ -32,6 +33,7 @@ export class AddEditComponent implements OnInit {
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
             role: ['', Validators.required],
+            isActive: [true, Validators.required],
             password: ['', [Validators.minLength(6), this.isAddMode ? Validators.required : Validators.nullValidator]],
             confirmPassword: ['']
         }, {
@@ -41,12 +43,22 @@ export class AddEditComponent implements OnInit {
         if (!this.isAddMode) {
             this.accountService.getById(this.id)
                 .pipe(first())
-                .subscribe(x => this.form.patchValue(x));
+                .subscribe(x => {
+                    this.form.patchValue(x)
+                    this.account = x;
+                    if(this.account.role === 'Admin'){
+                        this.form.get('isActive').disable();
+                    }
+                });
         }
     }
 
     // convenience getter for easy access to form fields
     get f() { return this.form.controls; }
+
+    get isActiveValue(): string {
+        return this.form.get('isActive')?.value ? 'true' : 'false';
+    }
 
     onSubmit() {
         this.submitted = true;
@@ -83,7 +95,12 @@ export class AddEditComponent implements OnInit {
     }
 
     private updateAccount() {
-        this.accountService.update(this.id, this.form.value)
+        this.loading = true;
+
+        const formData = this.form.value;
+        formData.isActive = this.isActiveValue;
+
+        this.accountService.update(this.id, formData)
             .pipe(first())
             .subscribe({
                 next: () => {
