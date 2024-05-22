@@ -56,13 +56,13 @@ export class ListComponent implements OnInit {
     }
 
     saveFood(food: Food) {
-        console.log('Save button clicked');
-        const updatedFood = { ...food, title: food.editTitle, description: food.editDescription };
+        const updatedFood = { title: food.editTitle, description: food.editDescription };
+        console.log('Updated food object to send:', updatedFood); // Add this line
         this.foodService.update(food.id, updatedFood)
+            .pipe(first())
             .subscribe(
-                updatedFood => {
-                    // Update the local foods array with the updated food item
-                    this.foods = this.foods.map(f => f.id === updatedFood.id ? updatedFood : f);
+                () => {
+                    this.foods = this.foods.map(f => f.id === food.id ? { ...food, ...updatedFood, editing: false } : f);
                     console.log('Food updated successfully.');
                     console.log('Updated foods array:', this.foods);
                 },
@@ -72,7 +72,6 @@ export class ListComponent implements OnInit {
                 }
             );
     }
-    
     
 
     cancelEdit(food: Food) {
@@ -95,5 +94,4 @@ export class ListComponent implements OnInit {
                 );
         }
     }
-
 }
