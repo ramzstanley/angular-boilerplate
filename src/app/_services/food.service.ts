@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { tap, catchError } from 'rxjs/operators';
 import { throwError } from 'rxjs';
@@ -37,6 +37,30 @@ export class FoodService {
     getFoodTitle(title: string): Observable<Food> {
         return this.http.get<Food>(`${baseUrl}/food/${title}`);
     }
+
+    create(food: Food): Observable<Food> {
+        console.log('Creating food:', food); // Log the food object being sent
+        return this.http.post<Food>(baseUrl, food)
+            .pipe(
+                tap(response => console.log('Create response:', response)), // Log the response
+                catchError(error => {
+                    console.error('Error in create request:', error); // Log any errors
+                    return throwError(error);
+                })
+            );
+    }
+    
+    addFood(title: string, description: string, picture: string): Observable<any> {
+        const url = 'http://localhost:4000/foods';
+        const body = { title, description, picture };
+    
+        return this.http.post(url, body, {
+          headers: new HttpHeaders({
+            'Content-Type': 'application/json'
+          })
+        });
+    }
+      
 
     delete(id: number): Observable<void> {
         return this.http.delete<void>(`${baseUrl}/${id}`);

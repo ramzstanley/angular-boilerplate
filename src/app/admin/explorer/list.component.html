@@ -1,5 +1,29 @@
 <h1>Cuisine Explorer</h1>
 <p>All accounts from secure (admin only) api end point:</p>
+<button class="btn btn-secondary" (click)="showAddForm()">Add</button>
+
+<!-- Add Form -->
+<div *ngIf="showAdd">
+    <h3>Add New Food</h3>
+    <form (ngSubmit)="addFood()">
+        <div class="form-group">
+            <label for="picture">Picture URL:</label>
+            <input type="text" class="form-control" id="picture" [(ngModel)]="newFood.picture" name="picture" required>
+        </div>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="newFood.title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" [(ngModel)]="newFood.description" name="description" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Cancel</button>
+    </form>
+</div>
+
+
 <table class="table table-striped">
     <thead>
         <tr>
@@ -34,7 +58,7 @@
         </ng-container>
         <tr *ngIf="!foods">
             <td colspan="4" class="text-center">
-            <span class="spinner-border spinner-border-lg align-center"></span>
+                <span class="spinner-border spinner-border-lg align-center"></span>
             </td>
         </tr>
     </tbody>

@@ -8,7 +8,9 @@ import { Food } from '@app/_models';
 })
 export class ListComponent implements OnInit {
     title: string;
-    foods: Food[];
+    foods: Food[] = [];
+    newFood: Food = { id: 0, picture: '', title: '', description: '', editing: false, editTitle: '', editDescription: '' };
+    showAdd: boolean = false;
     errorMessage: string;
 
     constructor(private foodService: FoodService) { }
@@ -23,32 +25,40 @@ export class ListComponent implements OnInit {
             .subscribe(
                 foods => {
                     this.foods = foods.map(food => ({ ...food, editing: false, editTitle: food.title, editDescription: food.description }));
-                    console.log('Foods:', this.foods);
                 },
                 error => {
-                    console.log('Error fetching foods:', error);
                     this.errorMessage = 'Error fetching foods';
                 }
             );
     }
 
-    searchFood() {
-        if (!this.title) {
-            this.loadAllFoods();
+    showAddForm() {
+        this.showAdd = true;
+    }
+
+    cancelAdd() {
+        this.showAdd = false;
+        this.newFood = { id: 0, picture: '', title: '', description: '', editing: false, editTitle: '', editDescription: '' };
+    }
+
+    addFood() {
+        const { picture, title, description } = this.newFood;
+
+        if (!picture || !title || !description) {
+            console.error('Please fill in all fields');
             return;
         }
 
-        this.foodService.getFoodTitle(this.title)
-            .subscribe(
-                (data: Food) => {
-                    console.log('Response from API:', data);
-                    this.foods = data ? [data] : [];
-                },
-                error => {
-                    console.log('Error fetching food by title:', error);
-                    this.errorMessage = 'Error fetching food by title';
-                }
-            );
+        this.foodService.addFood(title, description, picture).subscribe(
+            (response) => {
+                console.log('Food added successfully:', response);
+                this.loadAllFoods(); // Reload the list of foods after adding a new one
+                this.cancelAdd(); // Clear the form after adding
+            },
+            (error) => {
+                console.error('Error adding food:', error);
+            }
+        );
     }
 
     editFood(food: Food) {
@@ -56,23 +66,24 @@ export class ListComponent implements OnInit {
     }
 
     saveFood(food: Food) {
-        const updatedFood = { title: food.editTitle, description: food.editDescription };
-        console.log('Updated food object to send:', updatedFood); // Add this line
-        this.foodService.update(food.id, updatedFood)
-            .pipe(first())
-            .subscribe(
-                () => {
-                    this.foods = this.foods.map(f => f.id === food.id ? { ...food, ...updatedFood, editing: false } : f);
-                    console.log('Food updated successfully.');
-                    console.log('Updated foods array:', this.foods);
-                },
-                error => {
-                    console.log('Error updating food:', error);
-                    this.errorMessage = 'Error updating food';
-                }
-            );
+        const { editTitle, editDescription } = food;
+        if (!editTitle || !editDescription) {
+            console.error('Please fill in all fields');
+            return;
+        }
+
+        this.foodService.update(food.id, { title: editTitle, description: editDescription }).subscribe(
+            (response) => {
+                console.log('Food updated successfully:', response);
+                this.loadAllFoods(); // Reload the list of foods after updating
+            },
+            (error) => {
+                console.error('Error updating food:', error);
+            }
+        );
+
+        food.editing = false; // Set editing back to false after saving
     }
-    
 
     cancelEdit(food: Food) {
         this.foods = this.foods.map(f => f.id === food.id ? { ...f, editing: false, editTitle: f.title, editDescription: f.description } : f);
