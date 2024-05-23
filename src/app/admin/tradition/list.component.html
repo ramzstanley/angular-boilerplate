@@ -1,0 +1,71 @@
+<h1>Local Tradition Calendar</h1>
+<p>All traditions:</p>
+<button class="btn btn-primary" (click)="showAddForm()">Add New Tradition</button>
+
+<!-- Add Form -->
+<div *ngIf="showAdd">
+    <h3>Add New Tradition</h3>
+    <form (ngSubmit)="addTradition()">
+        <div class="form-group">
+            <label for="picture">Picture URL:</label>
+            <input type="text" class="form-control" id="picture" [(ngModel)]="newTradition.picture" name="picture" required>
+        </div>
+        <div class="form-group">
+            <label for="title">Title:</label>
+            <input type="text" class="form-control" id="title" [(ngModel)]="newTradition.title" name="title" required>
+        </div>
+        <div class="form-group">
+            <label for="description">Description:</label>
+            <textarea class="form-control" id="description" [(ngModel)]="newTradition.description" name="description" required></textarea>
+        </div>
+        <div class="form-group">
+            <label for="date">Date:</label>
+            <input type="date" class="form-control" id="date" [(ngModel)]="newTradition.date" name="date" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Add</button>
+        <button type="button" class="btn btn-secondary" (click)="cancelAdd()">Cancel</button>
+    </form>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th style="width:20%">Picture</th>
+            <th style="width:20%">Title</th>
+            <th style="width:30%">Description</th>
+            <th style="width:20%">Date</th>
+            <th style="width:10%">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <ng-container *ngFor="let tradition of traditions">
+            <tr *ngIf="!tradition.editing; else editRow">
+                <td><img [src]="'assets/pictures/' + tradition.picture" alt="{{ tradition.title }}" style="max-width: 100%; max-height: 100%;"></td>
+                <td>{{ tradition.title }}</td>
+                <td>{{ tradition.description }}</td>
+                <td>{{ tradition.date | date: 'shortDate' }}</td>
+                <td>
+                    <button class="btn btn-primary" (click)="editTradition(tradition)">Edit</button>
+                    <button class="btn btn-danger" (click)="deleteTradition(tradition)">Delete</button>
+                </td>
+            </tr>
+            <ng-template #editRow>
+                <tr>
+                    <td><img [src]="'assets/pictures/' + tradition.picture" alt="{{ tradition.title }}" style="max-width: 100%; max-height: 100%;"></td>
+                    <td><input type="text" [(ngModel)]="tradition.editTitle"></td>
+                    <td><textarea [(ngModel)]="tradition.editDescription"></textarea></td>
+                    <td><input type="date" [(ngModel)]="tradition.editDate"></td>
+                    <td>
+                        <button class="btn btn-primary" (click)="saveTradition(tradition)">Save</button>
+                        <button class="btn btn-secondary" (click)="cancelEdit(tradition)">Cancel</button>
+                    </td>
+                </tr>
+            </ng-template>                       
+        </ng-container>
+        <tr *ngIf="!traditions || traditions.length === 0">
+            <td colspan="5" class="text-center">
+                <span class="spinner-border spinner-border-lg align-center"></span>
+            </td>
+        </tr>
+    </tbody>
+</table>
